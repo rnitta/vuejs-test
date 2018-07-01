@@ -3,18 +3,25 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import Vuex from 'vuex'
+import store from './config/store'
+import VueFire from 'vuefire'
+import firebase from 'firebase'
+import {firebaseConfig} from './config/firebase-config'
+import('./css/main.scss')
 
-Vue.use(Vuex)
+Vue.use(VueFire)
 
-import('./css/main.css');
+const fb = firebase.initializeApp(firebaseConfig)
+const db = firebase.firestore()
+console.log(fb.name)
 
-Vue.config.productionTip = false;
+Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

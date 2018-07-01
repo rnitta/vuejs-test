@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="{ name: 'join'}">join</router-link>
+  <router-link :to="{ name: 'join' }">join</router-link>
 </template>
 
 <script>
