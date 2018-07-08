@@ -10,29 +10,29 @@
           br
           | 会社、グループ、もしくはより小さいチームでの利用が想定されています。
     .body
-      entry_form
-      modal
+      entry-form
+      create-room
+      join-room
+      waiting-modal
 </template>
 
 <script>
 import Vue from 'vue'
-import EntryForm from '../components/EntryForm'
-import Modal from '../components/Modal'
-import CreateRoom from '../components/CreateRoom'
-Vue.component('entry_form', EntryForm)
-Vue.component('modal', Modal)
+import EntryForm from '@/components/EntryForm'
+import CreateRoom from '@/components/CreateRoom'
+import JoinRoom from '@/components/JoinRoom'
+import WaitingModal from '@/components/WaitingModal'
+Vue.component('entry-form', EntryForm)
+Vue.component('create-room', CreateRoom)
+Vue.component('join-room', JoinRoom)
+Vue.component('waiting-modal', WaitingModal)
 
 export default {
-  name: 'HelloWorld',
   data () {
     return {
-      msg: 'hogehgoe'
     }
   },
   methods: {
-    hideModal () {
-      this.$store.commit('switchModal', false)
-    }
   }
 }
 </script>

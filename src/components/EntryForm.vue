@@ -10,10 +10,10 @@
 export default {
   methods: {
     createRoom () {
-      this.$store.commit('switchModal', true)
+      this.$store.commit('switchBoolean', {property: 'createRoomFormFlag', flag: true})
     },
     joinRoom () {
-      this.$store.commit('switchModal', true)
+      this.$store.commit('switchBoolean', {property: 'joinRoomFormFlag', flag: true})
     }
   }
 }

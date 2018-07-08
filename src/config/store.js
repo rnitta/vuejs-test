@@ -3,14 +3,24 @@ import Vue from 'vue'
 Vue.use(Vuex)
 
 const state = {
-  modal: false
+  modal: false,
+  createRoomFormFlag: false,
+  joinRoomFormFlag: false,
+  roomId: null,
+  userid: null,
+  waiting: false
 }
 
 const mutations = {
-  switchModal: (state, flag) => {
-    state.modal = flag
-  }
-}
+  switchBoolean: (state, payload) => {
+    state[payload.property] = payload.flag
+  },
+  setRoomId: (state, id) => {
+    state['roomId'] = id
+  },
+  setString: (state, payload) => {
+    state[payload.property] = payload.str
+  }}
 
 const getters = {}
 
