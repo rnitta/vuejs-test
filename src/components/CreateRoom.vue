@@ -42,12 +42,13 @@ export default {
         this.inputsInsufficient = true
         return false
       }
+      this.$store.commit('switchBoolean', {property: 'createRoomFormFlag', flag: true})
       this.$store.commit('switchBoolean', {property: 'waiting', flag: true})
       db.collection('rooms').where('name', '==', this.roomName)
         .get()
         .then((res) => {
           if (res.empty) {
-            this.createRoomUser()
+            this.createRoom(this.roomName, this.yourName)
           } else {
             alert(`${this.roomName}: 同名のルームが既に存在します`)
             this.roomName = ''
@@ -60,13 +61,23 @@ export default {
           this.$store.commit('switchBoolean', { property: 'waiting', flag: false })
         })
     },
-    createRoomUser () {
-      db.collection('rooms').doc().collection('users').add({
+    createRoom (roomName, yourName) {
+      db.collection('rooms').add({
+        name: roomName,
+        description: ''
+      }).then((res) => {
+        this.$store.commit('setString', { property: 'roomId', str: res.id })
+        this.createUser()
+      }).catch(function(error) {
+        console.error(error)
+      })
+    },
+    createUser () {
+      db.collection('rooms').doc(this.$store.state.roomId).collection('users').add({
         name: this.yourName
       }).then((res) => {
-        this.$store.commit('setString', { property: 'roomId', str: res.parent.parent.id })
         this.$store.commit('setString', { property: 'userId', str: res.id })
-      }).catch((error) => {
+      }).catch(function(error) {
         console.error(error)
       })
     }
