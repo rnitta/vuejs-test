@@ -52,13 +52,14 @@ export default {
           } else {
             alert(`${this.roomName}: 同名のルームが既に存在します`)
             this.roomName = ''
+            this.$store.commit('switchBoolean', { property: 'waiting', flag: false })
           }
         })
         .catch((error) => {
           alert('エラー')
           console.log(error)
-        }).finally(() => {
           this.$store.commit('switchBoolean', { property: 'waiting', flag: false })
+        }).finally(() => {
         })
     },
     createRoom (roomName, yourName) {
@@ -68,8 +69,9 @@ export default {
       }).then((res) => {
         this.$store.commit('setString', { property: 'roomId', str: res.id })
         this.createUser()
-      }).catch(function(error) {
+      }).catch((error) => {
         console.error(error)
+        this.$store.commit('switchBoolean', { property: 'waiting', flag: false })
       })
     },
     createUser () {
@@ -77,8 +79,10 @@ export default {
         name: this.yourName
       }).then((res) => {
         this.$store.commit('setString', { property: 'userId', str: res.id })
-      }).catch(function(error) {
+        this.$router.push({ name: 'room' })
+      }).catch((error) => {
         console.error(error)
+        this.$store.commit('switchBoolean', { property: 'waiting', flag: false })
       })
     }
   }
@@ -150,8 +154,6 @@ export default {
             border: 1px solid red;
           }
         }
-
-
       }
       .btn_field {
         display: flex;

@@ -67,6 +67,7 @@ export default {
       }).then((res) => {
         this.$store.commit('setString', { property: 'roomId', str: res.parent.parent.id })
         this.$store.commit('setString', { property: 'userId', str: res.id })
+        this.$router.push({ name: 'room' })
       }).catch((error) => {
         console.error(error)
       })

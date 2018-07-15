@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import top from '@/pages/Top'
-import Create from '../pages/Create'
-import Join from '../pages/Join'
+import Top from '@/pages/Top'
 import Room from '../pages/Room'
 
 Vue.use(Router)
@@ -13,19 +11,8 @@ export default new Router({
     {
       path: '/',
       name: 'top',
-      component: top
-    },
-    {
-      path: '/create',
-      name: 'create',
-      component: Create
-    },
-    {
-      path: '/join',
-      name: 'join',
-      component: Join
-    },
-    {
+      component: Top
+    }, {
       path: '/room',
       name: 'room',
       component: Room

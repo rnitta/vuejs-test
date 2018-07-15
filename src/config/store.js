@@ -6,8 +6,10 @@ const state = {
   modal: false,
   createRoomFormFlag: false,
   joinRoomFormFlag: false,
+  createEventFormFlag: false,
+  events: [],
   roomId: null,
-  userid: null,
+  userId: null,
   waiting: false
 }
 
@@ -20,7 +22,11 @@ const mutations = {
   },
   setString: (state, payload) => {
     state[payload.property] = payload.str
-  }}
+  },
+  setArray: (state, payload) => {
+    state[payload.property] = payload.array
+  }
+}
 
 const getters = {}
 
