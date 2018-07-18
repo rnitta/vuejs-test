@@ -7,12 +7,16 @@
         .body
           user-list
       .main
+        .header
+          .room_id_display
+            p ルームID：
+            p {{ $store.state.roomId }}
         .body
           event-list
         .footer
-          input.description_input(type='text', placeholder='例) 12時にタバコいこ', v-model='eventDescription')
+          input.description_input(type='text', placeholder='例) 12時にタバコいこ', v-model='eventDescription', @keyup.shift.13="createEventPushed()")
           <!-- @keyup.enter="createEventPushed()" -->
-          button.create-event-button(@mouseover='pop = true', @mouseleave='pop = false', @click="createEventPushed()", @keyup.shift.13="createEventPushed()")
+          button.create-event-button(@mouseover='pop = true', @mouseleave='pop = false', @click="createEventPushed()")
             | ＋
             .baloon(v-show='pop')
                span タバコフレンズを募集する
@@ -39,7 +43,11 @@ export default {
       this.eventDescription = null
       if (!description) { return false }
       db.collection('rooms').doc(this.$store.state.roomId).collection('events').add({
-        description: description
+        description: description,
+        creatorId: this.$store.state.userId,
+        creatorName: this.$store.state.userName,
+        participants: {},
+        createdAt: new Date()
       }).then((res) => {
         console.log(res)
       }).catch((error) => {
@@ -52,7 +60,6 @@ export default {
     if (!this.$store.state.roomId || !this.$store.state.userId) {
       this.$router.push({ name: 'top' })
     }
-    this.$bind('test', db.collection('rooms').doc(String(this.$store.state.roomId)).collection('users'))
   }
 }
 </script>
@@ -104,10 +111,26 @@ export default {
       width: 100%;
       display: flex;
       flex-direction: column;
+      .header {
+        .room_id_display {
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-end;
+          p {
+            &:first-child {
+              margin-right: 20px;
+            }
+          }
+        }
+      }
       .body{
+        padding: 10px;
         width: 100%;
         display: flex;
         flex: 1;
+        overflow-y: scroll;
+        margin: 20px 10px;
+        box-sizing: border-box;
       }
       .footer{
         width: 100%;

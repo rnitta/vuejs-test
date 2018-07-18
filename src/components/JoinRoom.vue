@@ -12,10 +12,10 @@
       .form
         .field
           label.room_id_label(for='room_id_input') ルームID
-          input#room_id_input(type='text', maxlength='20', placeholder='必須', v-model='roomId', v-bind:class='{ improper_input : roomId == "" }')
+          input#room_id_input(type='text', maxlength='20', placeholder='必須', v-model='roomId', v-bind:class='{ improper_input : roomId == "" }', @keyup.shift.13="goNext()")
         .field
           label.your_name_label(for='your_name_input') ニックネーム
-          input#your_name_input(type='text', maxlength='20', placeholder='必須', v-model='yourName', v-bind:class='{ improper_input : yourName == "" }')
+          input#your_name_input(type='text', maxlength='20', placeholder='必須', v-model='yourName', v-bind:class='{ improper_input : yourName == "" }', @keyup.shift.13="goNext()")
         .btn_field
           span.inputs_insufficient_notice(v-show='inputsInsufficient') 必須フィールドを入力してください
           button.next_btn(@click='goNext') 次へ👉
@@ -67,6 +67,7 @@ export default {
       }).then((res) => {
         this.$store.commit('setString', { property: 'roomId', str: res.parent.parent.id })
         this.$store.commit('setString', { property: 'userId', str: res.id })
+        this.$store.commit('setString', { property: 'userName', str: this.yourName })
         this.$router.push({ name: 'room' })
       }).catch((error) => {
         console.error(error)

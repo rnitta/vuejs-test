@@ -15,7 +15,7 @@ export default {
   methods: {
   },
   created () {
-    this.$bind('users', db.collection('rooms').doc(this.$store.state.roomId).collection('users'))
+    this.$bind('users', db.collection('rooms').doc(String(this.$store.state.roomId)).collection('users'))
   }
 }
 </script>

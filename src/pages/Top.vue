@@ -8,7 +8,7 @@
         p.description_text
           | タバコに行きたい人マッチングサービス。
           br
-          | 会社、グループ、もしくはより小さいチームでの利用が想定されています。
+          | 未完成。
     .body
       entry-form
       create-room

@@ -10,6 +10,7 @@ const state = {
   events: [],
   roomId: null,
   userId: null,
+  userName: null,
   waiting: false
 }
 
